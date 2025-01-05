@@ -1,13 +1,13 @@
 # Interview Scheduler API
 
-## Setup
+## API Setup
 
 Install dependencies with `npm install`.
 
 ## Additional Dependencies
 - Postgres 15.x
 
-## Creating The DB
+## DB Setup
 
 - Install postgres ( provide a default password )
 - Connect to postgres `psql -U postgres` ( enter default password if there is one )
