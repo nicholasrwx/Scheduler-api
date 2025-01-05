@@ -4,6 +4,9 @@
 
 Install dependencies with `npm install`.
 
+## Additional Dependencies
+- Postgres 15.x
+
 ## Creating The DB
 
 - Install postgres ( provide a default password )
