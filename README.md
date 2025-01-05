@@ -6,11 +6,14 @@ Install dependencies with `npm install`.
 
 ## Creating The DB
 
-Use the `psql -U development` command to login to the PostgreSQL server with the username `development` and the password `development`. This command **MUST** be run in a vagrant terminal, we are using the PostgreSQL installation provided in the vagrant environment.
+- Install postgres ( provide a default password )
+- Connect to postgres `psql -U postgres` ( enter default password if there is one )
+- Create role with `Create USER development;` ( grants Login privileges, uses default passwd )
+- Create a database with `CREATE DATABASE scheduler_development;`
+- Disconnect from postgres with `\q`
+- Use the `psql -U development` command to login to the PostgreSQL server and deafault passwd.
 
-Create a database with the command `CREATE DATABASE scheduler_development;`.
-
-Copy the `.env.example` file to `.env.development` and fill in the necessary PostgreSQL configuration. The `node-postgres` library uses these environment variables by default.
+- Copy the `.env.example` file to `.env.development` and fill in PostgreSQL configuration. The `node-postgres` library uses these environment variables by default.
 
 ```
 PGHOST=localhost
@@ -20,9 +23,42 @@ PGPASSWORD=development
 PGPORT=5432
 ```
 
+## Additonal Postgres Commands For Accessibility Issues
+  Postgres Users are refered to as "Roles with Login Privileges"
+
+  *Creating a role:*
+  - `CREATE USER username;` // has default login privileges
+  - `CREATE USER username WITH PASSWORD 'supersecretpassword';`
+  - `CREATE ROLE username;` // doesn't have default login privileges
+  - `CREATE ROLE username LOGIN WITH PASSWORD 'supersecretpassword';`
+
+  *Add a privilege to a role:*
+  - `ALTER ROLE your_user WITH LOGIN;` // provide login privilege
+
+  *Grant connect privilege on the database:*
+  - `GRANT CONNECT ON DATABASE scheduler_development TO development;`
+
+  *Grant a user access to the custom database schema:*
+  -  `GRANT USAGE ON SCHEMA scheduler_development TO development;`
+
+  *Grant explicit privileges on schema:*
+  - `GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA scheduler_development TO
+    development;`
+
+  *Ensure user has privileges on future tables and sequences:*
+  - `ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO development;`
+  - `ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT USAGE, SELECT ON SEQUENCES TO development;`
+
+  *Grant a user access to the postgres public schema:*
+  - `GRANT USAGE ON SCHEMA public TO development;`
+  - `GRANT USAGE ON SCHEMA public TO postgres;`
+
+  *Grant a user superuser privileges:*
+  - `ALTER ROLE development WITH SUPERUSER;`
+  
 ## Seeding
 
-Run a the development server with `npm start` in the Host environment. We are only using vagrant for `psql` this week.
+- Run the development server with `npm start`.
 
 Both of these achieve the same result.
 
