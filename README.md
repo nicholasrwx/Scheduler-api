@@ -5,10 +5,11 @@
 - Install postgres 15.x ( provide the default password `development` )
 - Connect to postgres `psql -U postgres` ( enter default password if required )
 - Create role with `Create USER development;` ( grants Login privileges )
+- Ensure new role exists with `\du` command
 - Create a database with `CREATE DATABASE scheduler_development;`
 - Disconnect from postgres with `\q`
-- Use the `psql -U development` command to login to the PostgreSQL server and default passwd
-  from this point forward.
+- Connect with `psql -U development -d scheduler_development` to ensure new user can login and
+  connect to db
 
 ## API Setup
 
