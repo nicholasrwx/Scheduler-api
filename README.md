@@ -1,21 +1,18 @@
 # Interview Scheduler API
 
-## API Setup
-
-Install dependencies with `npm install`.
-
-## Additional Dependencies
-- Postgres 15.x
-
 ## DB Setup
 
-- Install postgres ( provide a default password )
-- Connect to postgres `psql -U postgres` ( enter default password if there is one )
-- Create role with `Create USER development;` ( grants Login privileges, uses default passwd )
+- Install postgres 15.x ( provide the default password `development` )
+- Connect to postgres `psql -U postgres` ( enter default password if required )
+- Create role with `Create USER development;` ( grants Login privileges )
 - Create a database with `CREATE DATABASE scheduler_development;`
 - Disconnect from postgres with `\q`
-- Use the `psql -U development` command to login to the PostgreSQL server and deafault passwd.
+- Use the `psql -U development` command to login to the PostgreSQL server and default passwd
+  from this point forward.
 
+## API Setup
+
+- Install dependencies with `npm install`.
 - Copy the `.env.example` file to `.env.development` and fill in PostgreSQL configuration. The `node-postgres` library uses these environment variables by default.
 
 ```
